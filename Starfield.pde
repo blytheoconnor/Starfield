@@ -4,8 +4,9 @@ void setup() {
 	size(500,500);
   background(255);
   noStroke();
-  part = new Particle[2000];
+  part = new Particle[4000];
   part [0] = new OddballParticle();
+  part [0] = new JumboParticle();
   for(int i = 1; i < part.length; i++) {
     part[i] = new NormalParticle();
   }
@@ -27,7 +28,7 @@ class NormalParticle implements Particle{
    mySpeed = Math.random() * 10;
    myX = width/2;
    myY = height/2;
-   mySize = 4; 
+   mySize = 8; 
    myColour = color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
  }
  
@@ -50,25 +51,55 @@ interface Particle {
 }
 
 class OddballParticle implements Particle{
- int myColour, mySize, myX, myY;
+ int myColour, mySize, myX, myY, opacity;
 
  OddballParticle () {
    myX = width/2;
    myY = height/2;
-   mySize = 10; 
+   mySize = 20; 
+   myColour = color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255), 50);
+ }
+ 
+ public void move() {
+   if (mouseX < myX) {
+     myX -= ((int)(Math.random() * 5) +2);
+   } else {
+     myX += ((int)(Math.random() * 5) +2);
+   }
+   if (mouseY < myY) {
+     myY -= ((int)(Math.random() * 5) +2);
+   } else {
+     myY += ((int)(Math.random() * 5) +2);
+   }
+   show();
+ } 
+ 
+ public void show() {
+   fill (myColour);
+   rect(myX, myY, mySize, mySize, 3);
+ }
+}
+
+class JumboParticle implements Particle{
+ int myColour, mySize, myX, myY;
+
+ JumboParticle () {
+   myX = width/2;
+   myY = height/2;
+   mySize = 20; 
    myColour = color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
  }
  
  public void move() {
    if (mouseX < myX) {
-     myX -= ((int)(Math.random() * 20) - 5) + mySize;
+     myX -= ((int)(Math.random() * 5) +2);
    } else {
-     myX += ((int)(Math.random() * 20) - 10) + mySize;
+     myX += ((int)(Math.random() * 5) +2);
    }
    if (mouseY < myY) {
-     myY -= ((int)(Math.random() * 20) - 5) + mySize;
+     myY -= ((int)(Math.random() * 5) +2);
    } else {
-     myY += ((int)(Math.random() * 20) - 10) + mySize;
+     myY += ((int)(Math.random() * 5) +2);
    }
    show();
  } 
@@ -78,9 +109,4 @@ class OddballParticle implements Particle{
    rect(myX, myY, mySize, mySize, 10);
    
  }
-}
-
-class JumboParticle { //uses inheritance
-
-	//your code here
 }
