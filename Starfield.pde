@@ -1,13 +1,20 @@
+/*Starfield Project - Titled: Starfield Fun
+  By:Blythe O'Connor
+  For: Computer Science 12
+  Due: November 23, 2018
+  Project: Encorperate arrays and interfaces into code simulating traveling through space
+  */
+
 Particle part[];
 
 void setup() {
-	size(500,500);
+	size(500,425);
   background(255);
   noStroke();
-  part = new Particle[4000];
+  part = new Particle[3000];
   part [0] = new OddballParticle();
-  part [0] = new JumboParticle();
-  for(int i = 1; i < part.length; i++) {
+  part [1] = new JumboParticle();
+  for(int i = 2; i < part.length; i++) {
     part[i] = new NormalParticle();
   }
 }
@@ -28,8 +35,10 @@ class NormalParticle implements Particle{
    mySpeed = Math.random() * 10;
    myX = width/2;
    myY = height/2;
-   mySize = 8; 
-   myColour = color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
+   mySize = 5; 
+   myColour = color((int)(Math.random() * 255), 
+                    (int)(Math.random() * 255), 
+                    (int)(Math.random() * 255), 130);
  }
  
  public void move() {
@@ -39,9 +48,12 @@ class NormalParticle implements Particle{
  } 
  
  public void show() {
+   if (mouseX == myX && mouseY == myY) {
+     myColour = color (255,255,255);
+   } else {
    fill (myColour);
    ellipse((float)myX, (float)myY, mySize, mySize);
-   
+   }
  }
 } 
 
@@ -56,20 +68,22 @@ class OddballParticle implements Particle{
  OddballParticle () {
    myX = width/2;
    myY = height/2;
-   mySize = 20; 
-   myColour = color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255), 50);
+   mySize = 40; 
+   myColour = color((int)(Math.random() * 255), 
+                    (int)(Math.random() * 255), 
+                    (int)(Math.random() * 255), 150);
  }
  
  public void move() {
    if (mouseX < myX) {
-     myX -= ((int)(Math.random() * 5) +2);
+     myX -= ((int)(Math.random() * 5) + 3);
    } else {
-     myX += ((int)(Math.random() * 5) +2);
+     myX += ((int)(Math.random() * 5) + 3);
    }
    if (mouseY < myY) {
-     myY -= ((int)(Math.random() * 5) +2);
+     myY -= ((int)(Math.random() * 5) + 3);
    } else {
-     myY += ((int)(Math.random() * 5) +2);
+     myY += ((int)(Math.random() * 5) + 3);
    }
    show();
  } 
@@ -82,31 +96,23 @@ class OddballParticle implements Particle{
 
 class JumboParticle implements Particle{
  int myColour, mySize, myX, myY;
+ double myAngle, mySpeed;
 
  JumboParticle () {
    myX = width/2;
    myY = height/2;
-   mySize = 20; 
-   myColour = color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
+   mySize = 30; 
+   myColour = (0);
  }
  
  public void move() {
-   if (mouseX < myX) {
-     myX -= ((int)(Math.random() * 5) +2);
-   } else {
-     myX += ((int)(Math.random() * 5) +2);
-   }
-   if (mouseY < myY) {
-     myY -= ((int)(Math.random() * 5) +2);
-   } else {
-     myY += ((int)(Math.random() * 5) +2);
-   }
+   myX += (Math.random() * 20) - 10;
+   myY += (Math.random() * 20) - 10;
    show();
  } 
  
  public void show() {
    fill (myColour);
-   rect(myX, myY, mySize, mySize, 10);
-   
+   ellipse(myX, myY, mySize, mySize);
  }
 }
