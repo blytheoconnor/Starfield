@@ -48,12 +48,8 @@ class NormalParticle implements Particle{
  } 
  
  public void show() {
-   if (mouseX == myX && mouseY == myY) {
-     myColour = color (255,255,255);
-   } else {
    fill (myColour);
    ellipse((float)myX, (float)myY, mySize, mySize);
-   }
  }
 } 
 
